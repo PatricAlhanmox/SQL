@@ -1,0 +1,40 @@
+import psycopg2
+import sys
+from collections import defaultdict
+import collections
+
+dbname = 'a3'
+conn = psycopg2.connect('dbname=a3')
+cur = conn.cursor()
+
+if len(sys.argv) == 2:
+	term = sys.argv[1]
+else:
+	term = '19T1'
+	
+cur.execute("select r.code, t.name, m.day, m.start_time, m.end_time, m.weeks_binary from courses as c, classes as cl, rooms as r, terms as t, meetings as m where c.term_id=t.id and cl.course_id=c.id and cl.id=m.class_id and m.room_id=r.id and r.code ILIKE 'K-%' order by r.code, m.start_time, m.end_time;")
+count_dic = defaultdict(float)
+valid_room = 0
+for t in cur.fetchall():
+	if t[1] == term:
+		if count_dic[t[0]] < 200:
+			weeks = 0
+			for i in range(10):
+				if t[5][i] == '1':
+					weeks += 1
+			hour = t[4] // 100 - t[3] // 100
+			s_min = t[3] % 100 * 1.0 / 60 * 1.0
+			e_min = t[4] % 100 * 1.0 / 60 * 1.0
+			min = e_min - s_min
+			if min < 0:
+				hour -= 1
+				min += 1
+			time = hour + min
+			if time < 0:
+				print(time)
+			count_dic[t[0]] += time * weeks
+			if count_dic[t[0]] >= 200:
+				valid_room += 1
+cur.execute('select count(id) from rooms where code LIKE \'K-%\'')
+total_room = cur.fetchall()[0][0] * 1.0
+print (str(round((1 - valid_room / total_room) * 100, 1)) + "%")

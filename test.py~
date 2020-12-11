@@ -1,0 +1,63 @@
+for args in sys.argv[1:]:  
+    m = 0
+    i = 1
+    forbidenList = ['Lab class', 'Tutorial', 'Tute/Lab', 'Other']
+    code = args
+    for i in range(len(arrayDict['{}'.format(code)]['day'])):
+        if arrayDict['{}'.format(code)]['course_type'][i] == 'Lecture' and arrayDict['{}'.format(code)]['tag'] not in subject:
+            subject.extend([args, arrayDict['{}'.format(code)]['day'][i], arrayDict['{}'.format(code)]['course_type'][i], arrayDict['{}'.format(code)]['start_time'][i], arrayDict['{}'.format(code)]['end_time'][i], arrayDict['{}'.format(code)]['tag'][i]])
+            totalHours = totalHours + sum_up(arrayDict['{}'.format(code)]['start_time'][i], arrayDict['{}'.format(code)]['end_time'][i]) 
+            m = m+1
+            place['Lec{}'.format(i)] = i
+        
+        elif arrayDict['{}'.format(code)]['course_type'][i] in forbidenList:
+            j = 1
+            for j in range (m):
+                if subject[5*j-2] < arrayDict['{}'.format(code)]['start_time'][i] and arrayDict['{}'.format(code)]['start_time'][i] < subject[5*j-1]:
+                    if subject[5*j-2] < arrayDict['{}'.format(code)]['end_time'][i] and arrayDict['{}'.format(code)]['end_time'][i] < subject[5*j-1]:
+                        pass
+                    else:
+                        pass
+                else:
+                    if forbidenList.remove(arrayDict['{}'.format(code)]['course_type'][i]):
+                        forbidenList.remove(arrayDict['{}'.format(code)]['course_type'][i])
+                        totalHours = totalHours + sum_up(arrayDict['{}'.format(code)]['start_time'][i], arrayDict['{}'.format(code)]['end_time'][i])
+                        subject.extend([arrayDict['{}'.format(code)]['day'][i], arrayDict['{}'.format(code)]['course_type'][i], arrayDict['{}'.format(code)]['start_time'][i], arrayDict['{}'.format(code)]['end_time'][i], arrayDict['{}'.format(code)]['tag'][i]]) 
+                        m += 1
+                        place['Forb{}'.format(i)] = i
+                    else:
+                        pass
+
+    m = 0
+for args in sys.argv[1:]:  
+    m = 0
+    i = 1
+    forbidenList = ['Lab class', 'Tutorial', 'Tute/Lab', 'Other']
+    code = args
+    for i in range(len(arrayDict['{}'.format(code)]['day'])):
+        if arrayDict['{}'.format(code)]['course_type'][i] == 'Lecture' and arrayDict['{}'.format(code)]['tag'] not in subject:
+            subject.extend([args, arrayDict['{}'.format(code)]['day'][i], arrayDict['{}'.format(code)]['course_type'][i], arrayDict['{}'.format(code)]['start_time'][i], arrayDict['{}'.format(code)]['end_time'][i], arrayDict['{}'.format(code)]['tag'][i]])
+            totalHours = totalHours + sum_up(arrayDict['{}'.format(code)]['start_time'][i], arrayDict['{}'.format(code)]['end_time'][i]) 
+            m = m+1
+            place['Lec{}'.format(i)] = i
+        
+        elif arrayDict['{}'.format(code)]['course_type'][i] in forbidenList:
+            j = 1
+            for j in range (m):
+                if subject[5*j-2] < arrayDict['{}'.format(code)]['start_time'][i] and arrayDict['{}'.format(code)]['start_time'][i] < subject[5*j-1]:
+                    if subject[5*j-2] < arrayDict['{}'.format(code)]['end_time'][i] and arrayDict['{}'.format(code)]['end_time'][i] < subject[5*j-1]:
+                        pass
+                    else:
+                        pass
+                else:
+                    if forbidenList.remove(arrayDict['{}'.format(code)]['course_type'][i]):
+                        forbidenList.remove(arrayDict['{}'.format(code)]['course_type'][i])
+                        totalHours = totalHours + sum_up(arrayDict['{}'.format(code)]['start_time'][i], arrayDict['{}'.format(code)]['end_time'][i])
+                        subject.extend([arrayDict['{}'.format(code)]['day'][i], arrayDict['{}'.format(code)]['course_type'][i], arrayDict['{}'.format(code)]['start_time'][i], arrayDict['{}'.format(code)]['end_time'][i], arrayDict['{}'.format(code)]['tag'][i]]) 
+                        m += 1
+                        place['Forb{}'.format(i)] = i
+                    else:
+                        pass
+
+    m = 0
+
